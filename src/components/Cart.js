@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/Cart.css'
 
 function Cart({ cart, updateCart }) {
   const [isOpen, setIsOpen] = useState(true)
-  const total = cart.reduce((acc, plantType) => acc + plantType.amount * plantType.price,0)
+  const total = cart.reduce((acc, plantType) => acc + plantType.amount * plantType.price, 0)
+
+  useEffect(() => {
+    document.title = `LMJ: ${total}€ d'achats`
+  }, [])
 
   return isOpen ? (
     <div className='lmj-cart'>
@@ -20,7 +24,7 @@ function Cart({ cart, updateCart }) {
               </div>
             ))}
           </ul>
-          <h3>Total :{total}€</h3>
+          <h3>Total : {total}€</h3>
           <button onClick={() => updateCart([])}>Vider le panier</button>
         </div>
       ) : (
